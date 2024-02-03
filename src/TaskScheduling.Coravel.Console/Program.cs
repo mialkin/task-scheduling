@@ -25,7 +25,8 @@ services.UseScheduler(scheduler =>
     //     .EveryFiveSeconds();
 
     scheduler.ScheduleWithParams<MyRepeatableTask>("localhost")
-        .EveryFiveSeconds();
+        .EveryFiveSeconds()
+        .PreventOverlapping("some-unique-id");
 });
 
 
