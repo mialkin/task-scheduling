@@ -10,7 +10,6 @@ services.AddHangfire(configuration => configuration
     .UseRecommendedSerializerSettings()
     .UseSqlServerStorage(builder.Configuration.GetConnectionString("HangfireConnection")));
 
-// Add the processing server as IHostedService
 services.AddHangfireServer();
 
 var application = builder.Build();
@@ -19,5 +18,7 @@ application.UseHangfireDashboard("", new DashboardOptions
 {
     DarkModeEnabled = false
 });
+
+RecurringJob.AddOrUpdate("Backup database", () => Console.Write("Easy!"), Cron.Hourly);
 
 application.Run();
